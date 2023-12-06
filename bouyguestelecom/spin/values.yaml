@@ -1,0 +1,273 @@
+# Default values for spin.
+# This is a YAML-formatted file.
+
+# Override the fully qualified name
+fullnameOverride: ""
+
+# Optionally override the name
+nameOverride: ""
+
+# -- Deployment
+deployment:
+  # -- If defined, forces the container to use a port other than the one defined in service.httpPort.
+  containerPort: ''
+  # -- If defined, forces the container to use an admin port other than the one defined in service.httpAdminPort.
+  containerAdminPort: ''
+  # -- ReplicaCount for the Pod
+  replicaCount: 2
+  # -- Additional annotations for the Pod
+  podAnnotations: {}
+  imagePullSecrets: []
+  # -- Docker image configuration settings
+  image:
+    # -- docker image repository url
+    repository: nginx
+    # -- docker image pull policy
+    pullPolicy: IfNotPresent
+    # -- docker image tag
+    tag: "10"
+  # -- Additional ENV
+  containerEnv: {}
+  # -- Add extra ports to container
+  containerExtraPorts: ''
+  # -- Add extra specifications to container
+  containerExtraSpecs: ''
+  # -- Additional arguments to pass to the command
+  args: [ ]
+  # -- Pod-level security context configuration
+  podSecurityContext:
+    # -- Enable or disable the pod security context
+    enabled: false
+    # -- Set the File System Group (fsGroup) for the pod volumes
+    fsGroup: 1001 ## generic value
+  # -- Add initContainers
+  extraInitContainers: []
+  # -- Pod restart policy. One of `Always`, `OnFailure`, or `Never`
+  restartPolicy: Always
+  # -- Security context
+  securityContext:
+    enabled: false
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+  # Volumes
+  volumes: []
+  # - name: kafka-jks
+  #   configMap:
+  #     name: {{ include "spin.fullName" . }}-conf-kafka-jks
+  # Command to execute within the container
+  # -- VolumeMounts
+  volumeMounts: []
+  # - name: kafka-jks
+  #   mountPath: /home/devops/config/kafka
+  command: []
+  # -- Node Selector settings for pod scheduling
+  # -- An empty object means no node selector is applied, and the pod can be scheduled on any node
+  nodeSelector: {}
+  # -- Pod affinity configurartion : Hard node and soft zone anti-affinity
+  affinity: {}
+  # -- Readiness probe configuration
+  readinessProbe:
+    httpGet:
+      # -- The path to be used for the HTTP GET request
+      path: /
+      # -- The port on which to perform the GET request
+      port: 80
+      # -- The scheme for the GET request (e.g., HTTP or HTTPS)
+      scheme: HTTP
+    # -- Initial delay before starting the check (in seconds)
+    initialDelaySeconds: 5
+    # -- Maximum wait time for a response (in seconds)
+    timeoutSeconds: 5
+    # -- Check frequency (in seconds)
+    periodSeconds: 5
+    # -- Number of consecutive successful checks to be considered ready
+    successThreshold: 1
+    # -- Number of consecutive unsuccessful checks to be considered not ready
+    failureThreshold: 10
+  # -- Liveness probe configuration
+  livenessProbe:
+    httpGet:
+      # -- The path to be used for the HTTP GET request
+      path: /
+      # -- The port on which to perform the GET request
+      port: 80
+      # -- The scheme for the GET request (e.g., HTTP or HTTPS)
+      scheme: HTTP
+    # -- Initial delay before starting the check (in seconds)
+    initialDelaySeconds: 50
+    # -- Maximum wait time for a response (in seconds)
+    timeoutSeconds: 1
+    # -- Check frequency (in seconds)
+    periodSeconds: 10
+    # -- Number of consecutive successful checks to be considered alive
+    successThreshold: 1
+    # -- Number of consecutive unsuccessful checks to be considered not alive
+    failureThreshold: 5
+  # --  Resource Management for Pods and Containers
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+  # -- Tolerations for pod assignment
+  # -- Empty list means no tolerations are applied
+  tolerations: [ ]
+  # -- Startup probe settings (overrides liveness and readiness for slow-starting pods)
+  # -- Empty means no startup probe is configured
+  startupProbe: |
+  # -- Add additionnal volumes
+  extraVolumes: []
+    # - name: application-config
+    #   configMap:
+    #     name: {{ include "spin.fullName" . }}-conf
+    # - name: logback-config
+    #   configMap:
+    #     name: {{ include "spin.fullName" . }}-conf
+  # -- Add additionnal volumeMounts
+  extraVolumeMounts: ""
+    # - name: application-config
+    #   mountPath: /home/devops/config/application.yml
+    #   subPath: application.yml
+    #   readOnly: true
+    # - name: logback-config
+  #   mountPath: /home/devops/config/logback.xml
+  #   subPath: logback.xml
+  #   readOnly: true
+
+# -- Autoscaling
+autoscaling:
+  # -- Enable or disable Horizontal Pod Autoscaler (Autoscalling)
+  enabled: true
+  # -- Minimum number of pod replicas
+  minReplicas: 2
+  # -- Maximum number of pod replicas
+  maxReplicas: 10
+  # -- target CPU Utilization Percentage
+  targetCPUUtilizationPercentage: 100
+  # -- target Memory Utilization Percentage
+  targetMemoryUtilizationPercentage: 100
+
+# -- Ingress configuration
+ingress:
+  # -- Enable or disable the creation of an Ingress resource for the deployment
+  enabled: true
+  # -- Additional labels for the Ingress
+  labels: {}
+  className: ""
+  # -- Additional annotations for the Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  host: "your-host"
+  tls:
+    secretName: ''
+  # -- List of rules for the Ingress
+  rules:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+# -- Service configuration
+service:
+  # -- Enable or disable the creation of a Kubernetes service for the deployment
+  enabled: true
+  httpPortName: http
+  # -- The Service type
+  type: ClusterIP
+  # -- The http Service port
+  httpPort: 8080
+  # -- The HTTP Service node port if type is NodePort (The range of valid ports is 30000-32767)
+  httpNodePort: ''
+  # -- The Management port
+  httpAdminPort: 8081
+  # -- The Management port name
+  httpAdminPortName: http-admin
+  # -- The Management node port if type is NodePort (The range of valid ports is 30000-32767)
+  httpAdminNodePort: ''
+  # -- Additional Service ports, e. g. for custom admin console
+  extraPorts: [ ]
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # -- If not set and create is true, a name is generated using the fullname template
+  name: ""
+  # -- Image pull secrets that are attached to the ServiceAccount
+  imagePullSecrets: []
+
+# -- Canary release configuration settings
+canary:
+  # -- Enable or disable Canary releases
+  enabled: false
+  # -- HTTP header-based routing settings
+  header:
+    # -- Enable or disable header-based routing
+    enabled: false
+    # -- Name of the HTTP header to match
+    name: cookie
+    # -- Regular expression to match the header value
+    regex: ''
+  # -- Cookie-based routing settings
+  cookie:
+    # -- Enable or disable cookie-based routing
+    enabled: false
+    # -- Name of the cookie to match
+    name: x-hidden-prod
+  # -- Percentage-based routing settings
+  percent:
+    # -- Enable or disable percentage-based routing
+    enabled: false
+    # -- Percentage of traffic to route to the Canary release
+    value: 20
+
+# -- ENP allows object configuration
+# -- List of allowed entities for ENP (see [Readme ENPR](#egress-network-policy-enp))
+flux:
+  # -- Indicates if Flux is enabled (false by default)
+  enabled: false
+  configmap:
+    # -- Indicates if the ConfigMap is enabled (false by default)
+    enabled: false
+    # -- The file path for Flux configuration (default: /usr/src/app/)
+    filepath: /usr/src/app/
+    # -- The name of the Flux configuration file (default: flux.json)
+    filename: flux.json
+    # -- Configuration for Flux ConfigMap
+  # -- Internal settings for Flux (empty by default)
+  internal: {}
+
+# -- Pod Disruption Budget settings
+# -- Empty means no PDB is applied
+podDisruptionBudget: {}
+#  maxUnavailable: 1
+#  minAvailable: 1
+
+# -- Configuration settings for Kubernetes secrets
+secrets:
+  # -- Key-value pairs stored as base64-encoded strings
+  data: {}
+  type: ''
+
+# -- Set configurations files in configmaps.
+configFiles: {}
+  #Here is samples configurations files : application.properties
+  #application.yml: |-
+  #  insert_your_application_configuration_here
+  #logback.xml: |-
+#  insert_your_logback_configuration_here
+
+# -- Log into github to generate tag image
+github:
+  enabled: false
+  organization: "votre-organisation"
+  repository: "votre-repo"

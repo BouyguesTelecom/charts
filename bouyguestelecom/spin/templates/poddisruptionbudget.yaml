@@ -1,0 +1,18 @@
+{{- /*
+Copyright Bouygues Telecom SA
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+{{- if .Values.podDisruptionBudget -}}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{- include "spin.labels" . | nindent 4 }}
+spec:
+  {{- toYaml .Values.podDisruptionBudget | nindent 2 }}
+  selector:
+    matchLabels:
+      {{- include "spin.selectorLabels" . | nindent 6 }}
+{{- end -}}

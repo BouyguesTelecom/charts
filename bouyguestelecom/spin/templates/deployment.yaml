@@ -1,0 +1,104 @@
+{{- /*
+Copyright Bouygues Telecom SA
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{- include "spin.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.deployment.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "spin.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.deployment.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "spin.selectorLabels" . | nindent 8 }}
+    spec:
+      imagePullSecrets:
+      {{- if .Values.deployment.imagePullSecrets }}
+      {{- toYaml .Values.deployment.imagePullSecrets | nindent 2 }}
+      {{- else }}
+          - name: {{ .Release.Name }}-secret
+      {{- end }}
+      serviceAccountName: {{ include "spin.serviceAccountName" . }}
+      {{- if .Values.deployment.podSecurityContext.enabled }}
+      securityContext: {{- omit .Values.deployment.podSecurityContext "enabled" | toYaml | nindent 8 }}
+      {{- end }}
+      restartPolicy: {{ .Values.deployment.restartPolicy }}
+      {{- if .Values.deployment.extraInitContainers }}
+      initContainers:
+        {{- with .Values.deployment.extraInitContainers }}
+          {{- tpl . $ | nindent 8 }}
+          {{- end }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- if .Values.deployment.securityContext.enabled }}
+          securityContext:
+            {{- toYaml .Values.deployment.securityContext | nindent 12 }}
+          {{- end }}
+          image: {{ .Values.deployment.image.repository }}:{{ include "spin.version" . | replace "\"" "" }}
+          {{- with .Values.deployment.command }}
+          command:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with .Values.deployment.args }}
+          args:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with .Values.deployment.containerExtraSpecs }}
+          {{- tpl . $ | nindent 10 }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+          ports:
+            - name: {{ .Values.service.httpPortName }}
+              containerPort: {{ default .Values.service.httpPort .Values.deployment.containerPort }}
+            {{- if or .Values.service.httpAdminPort .Values.deployment.containerAdminPort }}
+            - name: {{ .Values.service.httpAdminPortName }}
+              containerPort: {{ default .Values.service.httpAdminPort .Values.deployment.containerAdminPort }}
+            {{- end }}
+            {{- with .Values.deployment.containerExtraPorts }}
+            {{- tpl . $ | nindent 12 }}
+            {{- end }}
+          livenessProbe:
+            {{- toYaml .Values.deployment.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.deployment.readinessProbe | nindent 12 }}
+          {{- with .Values.deployment.startupProbe }}
+          startupProbe:
+            {{- tpl . $ | nindent 12 }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.deployment.resources | nindent 12 }}
+          {{ include "spin.volumeMounts" . | nindent 10 }}
+          env:
+            {{- with .Values.deployment.containerEnv }}
+            {{- range .env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
+            {{- end }}
+      {{- with .Values.deployment.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.deployment.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.deployment.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{ include "spin.volumes" . | nindent 6 }}

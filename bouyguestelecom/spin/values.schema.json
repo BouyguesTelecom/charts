@@ -1,0 +1,1532 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "type": "object",
+  "title": "Root Schema for Helm template",
+  "required": [
+    "deployment",
+    "ingress",
+    "service",
+    "secrets"
+  ],
+  "properties": {
+    "fullnameOverride": {
+      "type": "string",
+      "default": "",
+      "title": "The fullnameOverride Schema",
+      "examples": [
+        ""
+      ]
+    },
+    "nameOverride": {
+      "type": "string",
+      "default": "",
+      "title": "The nameOverride Schema",
+      "examples": [
+        ""
+      ]
+    },
+    "deployment": {
+      "type": "object",
+      "default": {},
+      "title": "The deployment Schema",
+      "required": [
+        "containerPort",
+        "containerAdminPort",
+        "replicaCount",
+        "podAnnotations",
+        "imagePullSecrets",
+        "image",
+        "containerEnv",
+        "containerExtraPorts",
+        "containerExtraSpecs",
+        "args",
+        "podSecurityContext",
+        "extraInitContainers",
+        "restartPolicy",
+        "securityContext",
+        "volumes",
+        "volumeMounts",
+        "command",
+        "nodeSelector",
+        "affinity",
+        "readinessProbe",
+        "livenessProbe",
+        "resources",
+        "tolerations",
+        "startupProbe",
+        "extraVolumes",
+        "extraVolumeMounts"
+      ],
+      "properties": {
+        "containerPort": {
+          "type": "string",
+          "default": "",
+          "title": "The containerPort Schema",
+          "examples": [
+            ""
+          ]
+        },
+        "containerAdminPort": {
+          "type": "string",
+          "default": "",
+          "title": "The containerAdminPort Schema",
+          "examples": [
+            ""
+          ]
+        },
+        "replicaCount": {
+          "type": "integer",
+          "default": 0,
+          "title": "The replicaCount Schema",
+          "examples": [
+            2
+          ]
+        },
+        "podAnnotations": {
+          "type": "object",
+          "default": {},
+          "title": "The podAnnotations Schema",
+          "required": [],
+          "properties": {},
+          "examples": [{}]
+        },
+        "imagePullSecrets": {
+          "type": "array",
+          "default": [],
+          "title": "The imagePullSecrets Schema",
+          "items": {},
+          "examples": [
+            []
+          ]
+        },
+        "image": {
+          "type": "object",
+          "default": {},
+          "title": "The image Schema",
+          "required": [
+            "repository",
+            "pullPolicy",
+            "tag"
+          ],
+          "properties": {
+            "repository": {
+              "type": "string",
+              "default": "",
+              "title": "The repository Schema",
+              "examples": [
+                "nginx"
+              ]
+            },
+            "pullPolicy": {
+              "type": "string",
+              "default": "",
+              "title": "The pullPolicy Schema",
+              "examples": [
+                "IfNotPresent"
+              ]
+            },
+            "tag": {
+              "type": "string",
+              "default": "",
+              "title": "The tag Schema",
+              "examples": [
+                "10"
+              ]
+            }
+          },
+          "examples": [{
+            "repository": "nginx",
+            "pullPolicy": "IfNotPresent",
+            "tag": "10"
+          }]
+        },
+        "containerEnv": {
+          "type": "object",
+          "default": {},
+          "title": "The containerEnv Schema",
+          "required": [],
+          "properties": {},
+          "examples": [{}]
+        },
+        "containerExtraPorts": {
+          "type": "string",
+          "default": "",
+          "title": "The containerExtraPorts Schema",
+          "examples": [
+            ""
+          ]
+        },
+        "containerExtraSpecs": {
+          "type": "string",
+          "default": "",
+          "title": "The containerExtraSpecs Schema",
+          "examples": [
+            ""
+          ]
+        },
+        "args": {
+          "type": "array",
+          "default": [],
+          "title": "The args Schema",
+          "items": {},
+          "examples": [
+            []
+          ]
+        },
+        "podSecurityContext": {
+          "type": "object",
+          "default": {},
+          "title": "The podSecurityContext Schema",
+          "required": [
+            "enabled",
+            "fsGroup"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "title": "The enabled Schema",
+              "examples": [
+                false
+              ]
+            },
+            "fsGroup": {
+              "type": "integer",
+              "default": 0,
+              "title": "The fsGroup Schema",
+              "examples": [
+                1001
+              ]
+            }
+          },
+          "examples": [{
+            "enabled": false,
+            "fsGroup": 1001
+          }]
+        },
+        "extraInitContainers": {
+          "type": "array",
+          "default": [],
+          "title": "The extraInitContainers Schema",
+          "items": {},
+          "examples": [
+            []
+          ]
+        },
+        "restartPolicy": {
+          "type": "string",
+          "default": "",
+          "title": "The restartPolicy Schema",
+          "examples": [
+            "Always"
+          ]
+        },
+        "securityContext": {
+          "type": "object",
+          "default": {},
+          "title": "The securityContext Schema",
+          "required": [
+            "enabled"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "title": "The enabled Schema",
+              "examples": [
+                false
+              ]
+            }
+          },
+          "examples": [{
+            "enabled": false
+          }]
+        },
+        "volumes": {
+          "type": "array",
+          "default": [],
+          "title": "The volumes Schema",
+          "examples": [
+            ""
+          ]
+        },
+        "volumeMounts": {
+          "type": "array",
+          "default": [],
+          "title": "The volumeMounts Schema",
+          "examples": [
+            ""
+          ]
+        },
+        "command": {
+          "type": "array",
+          "default": [],
+          "title": "The command Schema",
+          "items": {},
+          "examples": [
+            []
+          ]
+        },
+        "nodeSelector": {
+          "type": "object",
+          "default": {},
+          "title": "The nodeSelector Schema",
+          "required": [],
+          "properties": {},
+          "examples": [{}]
+        },
+        "affinity": {
+          "type": "object",
+          "default": {},
+          "title": "The affinity Schema",
+          "required": [],
+          "properties": {},
+          "examples": [{}]
+        },
+        "readinessProbe": {
+          "type": "object",
+          "default": {},
+          "title": "The readinessProbe Schema",
+          "required": [
+            "httpGet",
+            "initialDelaySeconds",
+            "timeoutSeconds",
+            "periodSeconds",
+            "successThreshold",
+            "failureThreshold"
+          ],
+          "properties": {
+            "httpGet": {
+              "type": "object",
+              "default": {},
+              "title": "The httpGet Schema",
+              "required": [
+                "path",
+                "port",
+                "scheme"
+              ],
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "default": "",
+                  "title": "The path Schema",
+                  "examples": [
+                    "/"
+                  ]
+                },
+                "port": {
+                  "type": "integer",
+                  "default": 0,
+                  "title": "The port Schema",
+                  "examples": [
+                    80
+                  ]
+                },
+                "scheme": {
+                  "type": "string",
+                  "default": "",
+                  "title": "The scheme Schema",
+                  "examples": [
+                    "HTTP"
+                  ]
+                }
+              },
+              "examples": [{
+                "path": "/",
+                "port": 80,
+                "scheme": "HTTP"
+              }]
+            },
+            "initialDelaySeconds": {
+              "type": "integer",
+              "default": 0,
+              "title": "The initialDelaySeconds Schema",
+              "examples": [
+                5
+              ]
+            },
+            "timeoutSeconds": {
+              "type": "integer",
+              "default": 0,
+              "title": "The timeoutSeconds Schema",
+              "examples": [
+                5
+              ]
+            },
+            "periodSeconds": {
+              "type": "integer",
+              "default": 0,
+              "title": "The periodSeconds Schema",
+              "examples": [
+                5
+              ]
+            },
+            "successThreshold": {
+              "type": "integer",
+              "default": 0,
+              "title": "The successThreshold Schema",
+              "examples": [
+                1
+              ]
+            },
+            "failureThreshold": {
+              "type": "integer",
+              "default": 0,
+              "title": "The failureThreshold Schema",
+              "examples": [
+                10
+              ]
+            }
+          },
+          "examples": [{
+            "httpGet": {
+              "path": "/",
+              "port": 80,
+              "scheme": "HTTP"
+            },
+            "initialDelaySeconds": 5,
+            "timeoutSeconds": 5,
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "failureThreshold": 10
+          }]
+        },
+        "livenessProbe": {
+          "type": "object",
+          "default": {},
+          "title": "The livenessProbe Schema",
+          "required": [
+            "httpGet",
+            "initialDelaySeconds",
+            "timeoutSeconds",
+            "periodSeconds",
+            "successThreshold",
+            "failureThreshold"
+          ],
+          "properties": {
+            "httpGet": {
+              "type": "object",
+              "default": {},
+              "title": "The httpGet Schema",
+              "required": [
+                "path",
+                "port",
+                "scheme"
+              ],
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "default": "",
+                  "title": "The path Schema",
+                  "examples": [
+                    "/"
+                  ]
+                },
+                "port": {
+                  "type": "integer",
+                  "default": 0,
+                  "title": "The port Schema",
+                  "examples": [
+                    80
+                  ]
+                },
+                "scheme": {
+                  "type": "string",
+                  "default": "",
+                  "title": "The scheme Schema",
+                  "examples": [
+                    "HTTP"
+                  ]
+                }
+              },
+              "examples": [{
+                "path": "/",
+                "port": 80,
+                "scheme": "HTTP"
+              }]
+            },
+            "initialDelaySeconds": {
+              "type": "integer",
+              "default": 0,
+              "title": "The initialDelaySeconds Schema",
+              "examples": [
+                50
+              ]
+            },
+            "timeoutSeconds": {
+              "type": "integer",
+              "default": 0,
+              "title": "The timeoutSeconds Schema",
+              "examples": [
+                1
+              ]
+            },
+            "periodSeconds": {
+              "type": "integer",
+              "default": 0,
+              "title": "The periodSeconds Schema",
+              "examples": [
+                10
+              ]
+            },
+            "successThreshold": {
+              "type": "integer",
+              "default": 0,
+              "title": "The successThreshold Schema",
+              "examples": [
+                1
+              ]
+            },
+            "failureThreshold": {
+              "type": "integer",
+              "default": 0,
+              "title": "The failureThreshold Schema",
+              "examples": [
+                5
+              ]
+            }
+          },
+          "examples": [{
+            "httpGet": {
+              "path": "/",
+              "port": 80,
+              "scheme": "HTTP"
+            },
+            "initialDelaySeconds": 50,
+            "timeoutSeconds": 1,
+            "periodSeconds": 10,
+            "successThreshold": 1,
+            "failureThreshold": 5
+          }]
+        },
+        "resources": {
+          "type": "object",
+          "default": {},
+          "title": "The resources Schema",
+          "required": [],
+          "properties": {
+            "limits": {
+              "type": "object",
+              "default": {},
+              "title": "The limits Schema",
+              "required": [
+                "cpu",
+                "memory"
+              ],
+              "properties": {
+                "cpu": {
+                  "type": "string",
+                  "default": "",
+                  "title": "The cpu Schema",
+                  "examples": [
+                    "500m"
+                  ]
+                },
+                "memory": {
+                  "type": "string",
+                  "default": "",
+                  "title": "The memory Schema",
+                  "examples": [
+                    "1Gi"
+                  ]
+                }
+              },
+              "examples": [{
+                "cpu": "500m",
+                "memory": "1Gi"
+              }]
+            },
+            "requests": {
+              "type": "object",
+              "default": {},
+              "title": "The requests Schema",
+              "required": [
+                "cpu",
+                "memory"
+              ],
+              "properties": {
+                "cpu": {
+                  "type": "string",
+                  "default": "",
+                  "title": "The cpu Schema",
+                  "examples": [
+                    "100m"
+                  ]
+                },
+                "memory": {
+                  "type": "string",
+                  "default": "",
+                  "title": "The memory Schema",
+                  "examples": [
+                    "128Mi"
+                  ]
+                }
+              },
+              "examples": [{
+                "cpu": "100m",
+                "memory": "128Mi"
+              }]
+            }
+          },
+          "examples": [{
+            "limits": {
+              "cpu": "100m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "128Mi"
+            }
+          }]
+        },
+        "tolerations": {
+          "type": "array",
+          "default": [],
+          "title": "The tolerations Schema",
+          "items": {},
+          "examples": [
+            []
+          ]
+        },
+        "startupProbe": {
+          "type": "string",
+          "default": "",
+          "title": "The startupProbe Schema",
+          "examples": [
+            ""
+          ]
+        },
+        "extraVolumes": {
+          "type": "array",
+          "default": [],
+          "title": "The extraVolumes Schema",
+          "examples": [
+            ""
+          ]
+        },
+        "extraVolumeMounts": {
+          "type": "string",
+          "default": "",
+          "title": "The extraVolumeMounts Schema",
+          "examples": [
+            ""
+          ]
+        }
+      },
+      "examples": [{
+        "containerPort": "",
+        "containerAdminPort": "",
+        "replicaCount": 2,
+        "podAnnotations": {},
+        "imagePullSecrets": [],
+        "image": {
+          "repository": "nginx",
+          "pullPolicy": "IfNotPresent",
+          "tag": "10"
+        },
+        "containerEnv": {},
+        "containerExtraPorts": "",
+        "containerExtraSpecs": "",
+        "args": [],
+        "podSecurityContext": {
+          "enabled": false,
+          "fsGroup": 1001
+        },
+        "extraInitContainers": [],
+        "restartPolicy": "Always",
+        "securityContext": {
+          "enabled": false
+        },
+        "volumes": [],
+        "volumeMounts": [],
+        "command": [],
+        "nodeSelector": {},
+        "affinity": {},
+        "readinessProbe": {
+          "httpGet": {
+            "path": "/",
+            "port": 80,
+            "scheme": "HTTP"
+          },
+          "initialDelaySeconds": 5,
+          "timeoutSeconds": 5,
+          "periodSeconds": 5,
+          "successThreshold": 1,
+          "failureThreshold": 10
+        },
+        "livenessProbe": {
+          "httpGet": {
+            "path": "/",
+            "port": 80,
+            "scheme": "HTTP"
+          },
+          "initialDelaySeconds": 50,
+          "timeoutSeconds": 1,
+          "periodSeconds": 10,
+          "successThreshold": 1,
+          "failureThreshold": 5
+        },
+        "resources": {
+          "limits": {
+            "cpu": "100m",
+            "memory": "128Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+          }
+        },
+        "tolerations": [],
+        "startupProbe": "",
+        "extraVolumes": [],
+        "extraVolumeMounts": ""
+      }]
+    },
+    "autoscaling": {
+      "type": "object",
+      "default": {},
+      "title": "The autoscaling Schema",
+      "required": [
+        "enabled",
+        "minReplicas",
+        "maxReplicas",
+        "targetCPUUtilizationPercentage",
+        "targetMemoryUtilizationPercentage"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "title": "The enabled Schema",
+          "examples": [
+            true
+          ]
+        },
+        "minReplicas": {
+          "type": "integer",
+          "default": 0,
+          "title": "The minReplicas Schema",
+          "examples": [
+            2
+          ]
+        },
+        "maxReplicas": {
+          "type": "integer",
+          "default": 0,
+          "title": "The maxReplicas Schema",
+          "examples": [
+            10
+          ]
+        },
+        "targetCPUUtilizationPercentage": {
+          "type": "integer",
+          "default": 0,
+          "title": "The targetCPUUtilizationPercentage Schema",
+          "examples": [
+            100
+          ]
+        },
+        "targetMemoryUtilizationPercentage": {
+          "type": "integer",
+          "default": 0,
+          "title": "The targetMemoryUtilizationPercentage Schema",
+          "examples": [
+            100
+          ]
+        }
+      },
+      "examples": [{
+        "enabled": true,
+        "minReplicas": 2,
+        "maxReplicas": 10,
+        "targetCPUUtilizationPercentage": 100,
+        "targetMemoryUtilizationPercentage": 100
+      }]
+    },
+    "ingress": {
+      "type": "object",
+      "default": {},
+      "title": "The ingress Schema",
+      "required": [
+        "enabled",
+        "labels",
+        "className",
+        "annotations",
+        "host",
+        "tls",
+        "rules"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "title": "The enabled Schema",
+          "examples": [
+            true
+          ]
+        },
+        "labels": {
+          "type": "object",
+          "default": {},
+          "title": "The labels Schema",
+          "required": [],
+          "properties": {},
+          "examples": [{}]
+        },
+        "className": {
+          "type": "string",
+          "default": "",
+          "title": "The className Schema",
+          "examples": [
+            ""
+          ]
+        },
+        "annotations": {
+          "type": "object",
+          "default": {},
+          "title": "The annotations Schema",
+          "required": [],
+          "properties": {},
+          "examples": [{}]
+        },
+        "host": {
+          "type": "string",
+          "default": "",
+          "title": "The host Schema",
+          "examples": [
+            "your-host"
+          ]
+        },
+        "tls": {
+          "type": "object",
+          "default": {},
+          "title": "The tls Schema",
+          "required": [
+            "secretName"
+          ],
+          "properties": {
+            "secretName": {
+              "type": "string",
+              "default": "",
+              "title": "The secretName Schema",
+              "examples": [
+                ""
+              ]
+            }
+          },
+          "examples": [{
+            "secretName": ""
+          }]
+        },
+        "rules": {
+          "type": "array",
+          "default": [],
+          "title": "The rules Schema",
+          "items": {
+            "type": "object",
+            "default": {},
+            "title": "A Schema",
+            "required": [
+              "host",
+              "paths"
+            ],
+            "properties": {
+              "host": {
+                "type": "string",
+                "default": "",
+                "title": "The host Schema",
+                "examples": [
+                  "chart-example.local"
+                ]
+              },
+              "paths": {
+                "type": "array",
+                "default": [],
+                "title": "The paths Schema",
+                "items": {
+                  "type": "object",
+                  "default": {},
+                  "title": "A Schema",
+                  "required": [
+                    "path",
+                    "pathType"
+                  ],
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "default": "",
+                      "title": "The path Schema",
+                      "examples": [
+                        "/"
+                      ]
+                    },
+                    "pathType": {
+                      "type": "string",
+                      "default": "",
+                      "title": "The pathType Schema",
+                      "examples": [
+                        "ImplementationSpecific"
+                      ]
+                    }
+                  },
+                  "examples": [{
+                    "path": "/",
+                    "pathType": "ImplementationSpecific"
+                  }]
+                },
+                "examples": [
+                  [{
+                    "path": "/",
+                    "pathType": "ImplementationSpecific"
+                  }]
+                ]
+              }
+            },
+            "examples": [{
+              "host": "chart-example.local",
+              "paths": [{
+                "path": "/",
+                "pathType": "ImplementationSpecific"
+              }]
+            }]
+          },
+          "examples": [
+            [{
+              "host": "chart-example.local",
+              "paths": [{
+                "path": "/",
+                "pathType": "ImplementationSpecific"
+              }]
+            }]
+          ]
+        }
+      },
+      "examples": [{
+        "enabled": true,
+        "labels": {},
+        "className": "",
+        "annotations": {},
+        "host": "your-host",
+        "tls": {
+          "secretName": ""
+        },
+        "rules": [{
+          "host": "chart-example.local",
+          "paths": [{
+            "path": "/",
+            "pathType": "ImplementationSpecific"
+          }]
+        }]
+      }]
+    },
+    "service": {
+      "type": "object",
+      "default": {},
+      "title": "The service Schema",
+      "required": [
+        "enabled",
+        "httpPortName",
+        "type",
+        "httpPort",
+        "httpNodePort",
+        "httpAdminPort",
+        "httpAdminPortName",
+        "httpAdminNodePort",
+        "extraPorts"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "title": "The enabled Schema",
+          "examples": [
+            true
+          ]
+        },
+        "httpPortName": {
+          "type": "string",
+          "default": "",
+          "title": "The httpPortName Schema",
+          "examples": [
+            "http"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "default": "",
+          "title": "The type Schema",
+          "examples": [
+            "ClusterIP"
+          ]
+        },
+        "httpPort": {
+          "type": "integer",
+          "default": 0,
+          "title": "The httpPort Schema",
+          "examples": [
+            8080
+          ]
+        },
+        "httpNodePort": {
+          "type": "string",
+          "default": "",
+          "title": "The httpNodePort Schema",
+          "examples": [
+            ""
+          ]
+        },
+        "httpAdminPort": {
+          "type": "integer",
+          "default": 0,
+          "title": "The httpAdminPort Schema",
+          "examples": [
+            8081
+          ]
+        },
+        "httpAdminPortName": {
+          "type": "string",
+          "default": "",
+          "title": "The httpAdminPortName Schema",
+          "examples": [
+            "http-admin"
+          ]
+        },
+        "httpAdminNodePort": {
+          "type": "string",
+          "default": "",
+          "title": "The httpAdminNodePort Schema",
+          "examples": [
+            ""
+          ]
+        },
+        "extraPorts": {
+          "type": "array",
+          "default": [],
+          "title": "The extraPorts Schema",
+          "items": {},
+          "examples": [
+            []
+          ]
+        }
+      },
+      "examples": [{
+        "enabled": true,
+        "httpPortName": "http",
+        "type": "ClusterIP",
+        "httpPort": 8080,
+        "httpNodePort": "",
+        "httpAdminPort": 8081,
+        "httpAdminPortName": "http-admin",
+        "httpAdminNodePort": "",
+        "extraPorts": []
+      }]
+    },
+    "serviceAccount": {
+      "type": "object",
+      "default": {},
+      "title": "The serviceAccount Schema",
+      "required": [
+        "create",
+        "annotations",
+        "name",
+        "imagePullSecrets"
+      ],
+      "properties": {
+        "create": {
+          "type": "boolean",
+          "default": false,
+          "title": "The create Schema",
+          "examples": [
+            true
+          ]
+        },
+        "annotations": {
+          "type": "object",
+          "default": {},
+          "title": "The annotations Schema",
+          "required": [],
+          "properties": {},
+          "examples": [{}]
+        },
+        "name": {
+          "type": "string",
+          "default": "",
+          "title": "The name Schema",
+          "examples": [
+            ""
+          ]
+        },
+        "imagePullSecrets": {
+          "type": "array",
+          "default": [],
+          "title": "The imagePullSecrets Schema",
+          "items": {},
+          "examples": [
+            []
+          ]
+        }
+      },
+      "examples": [{
+        "create": true,
+        "annotations": {},
+        "name": "",
+        "imagePullSecrets": []
+      }]
+    },
+    "canary": {
+      "type": "object",
+      "default": {},
+      "title": "The canary Schema",
+      "required": [
+        "enabled",
+        "header",
+        "cookie",
+        "percent"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "title": "The enabled Schema",
+          "examples": [
+            false
+          ]
+        },
+        "header": {
+          "type": "object",
+          "default": {},
+          "title": "The header Schema",
+          "required": [
+            "enabled",
+            "name",
+            "regex"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "title": "The enabled Schema",
+              "examples": [
+                false
+              ]
+            },
+            "name": {
+              "type": "string",
+              "default": "",
+              "title": "The name Schema",
+              "examples": [
+                "cookie"
+              ]
+            },
+            "regex": {
+              "type": "string",
+              "default": "",
+              "title": "The regex Schema",
+              "examples": [
+                " "
+              ]
+            }
+          },
+          "examples": [{
+            "enabled": false,
+            "name": "cookie",
+            "regex": ""
+          }]
+        },
+        "cookie": {
+          "type": "object",
+          "default": {},
+          "title": "The cookie Schema",
+          "required": [
+            "enabled",
+            "name"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "title": "The enabled Schema",
+              "examples": [
+                false
+              ]
+            },
+            "name": {
+              "type": "string",
+              "default": "",
+              "title": "The name Schema",
+              "examples": [
+                "x-hidden-prod"
+              ]
+            }
+          },
+          "examples": [{
+            "enabled": false,
+            "name": "x-hidden-prod"
+          }]
+        },
+        "percent": {
+          "type": "object",
+          "default": {},
+          "title": "The percent Schema",
+          "required": [
+            "enabled",
+            "value"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "title": "The enabled Schema",
+              "examples": [
+                false
+              ]
+            },
+            "value": {
+              "type": "integer",
+              "default": 0,
+              "title": "The value Schema",
+              "examples": [
+                20
+              ]
+            }
+          },
+          "examples": [{
+            "enabled": false,
+            "value": 20
+          }]
+        }
+      },
+      "examples": [{
+        "enabled": false,
+        "header": {
+          "enabled": false,
+          "name": "cookie",
+          "regex": ""
+        },
+        "cookie": {
+          "enabled": false,
+          "name": "x-hidden-prod"
+        },
+        "percent": {
+          "enabled": false,
+          "value": 20
+        }
+      }]
+    },
+    "flux": {
+      "type": "object",
+      "default": {},
+      "title": "The flux Schema",
+      "required": [
+        "enabled",
+        "configmap",
+        "internal"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "title": "The enabled Schema",
+          "examples": [
+            false
+          ]
+        },
+        "configmap": {
+          "type": "object",
+          "default": {},
+          "title": "The configmap Schema",
+          "required": [
+            "enabled",
+            "filepath",
+            "filename"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "title": "The enabled Schema",
+              "examples": [
+                false
+              ]
+            },
+            "filepath": {
+              "type": "string",
+              "default": "",
+              "title": "The filepath Schema",
+              "examples": [
+                "/usr/src/app/"
+              ]
+            },
+            "filename": {
+              "type": "string",
+              "default": "",
+              "title": "The filename Schema",
+              "examples": [
+                "flux.json"
+              ]
+            }
+          },
+          "examples": [{
+            "enabled": false,
+            "filepath": "/usr/src/app/",
+            "filename": "flux.json"
+          }]
+        },
+        "internal": {
+          "type": "object",
+          "default": {},
+          "title": "The internal Schema",
+          "required": [],
+          "properties": {},
+          "examples": [{}]
+        }
+      },
+      "examples": [{
+        "enabled": false,
+        "configmap": {
+          "enabled": false,
+          "filepath": "/usr/src/app/",
+          "filename": "flux.json"
+        },
+        "internal": {}
+      }]
+    },
+    "podDisruptionBudget": {
+      "type": "object",
+      "default": {},
+      "title": "The podDisruptionBudget Schema",
+      "required": [],
+      "properties": {},
+      "examples": [{}]
+    },
+    "secrets": {
+      "type": "object",
+      "default": {},
+      "title": "The secrets Schema",
+      "required": [
+        "data",
+        "type"
+      ],
+      "properties": {
+        "data": {
+          "type": "object",
+          "default": {},
+          "title": "The data Schema",
+          "required": [],
+          "properties": {},
+          "examples": [{}]
+        },
+        "type": {
+          "type": "string",
+          "default": "",
+          "title": "The type Schema",
+          "examples": [
+            ""
+          ]
+        }
+      },
+      "examples": [{
+        "data": {},
+        "type": ""
+      }]
+    },
+    "configFiles": {
+      "type": "object",
+      "default": {},
+      "title": "The configFiles Schema",
+      "required": [],
+      "properties": {},
+      "examples": [{}]
+    },
+    "github": {
+      "type": "object",
+      "default": {},
+      "title": "The github Schema",
+      "required": [
+        "enabled",
+        "organization",
+        "repository"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "title": "The enabled Schema",
+          "examples": [
+            false
+          ]
+        },
+        "organization": {
+          "type": "string",
+          "default": "",
+          "title": "The organization Schema",
+          "examples": [
+            "votre-organisation"
+          ]
+        },
+        "repository": {
+          "type": "string",
+          "default": "",
+          "title": "The repository Schema",
+          "examples": [
+            "votre-repo"
+          ]
+        }
+      },
+      "examples": [{
+        "enabled": false,
+        "organization": "votre-organisation",
+        "repository": "votre-repo"
+      }]
+    }
+  },
+  "examples": [{
+    "fullnameOverride": "",
+    "nameOverride": "",
+    "deployment": {
+      "containerPort": "",
+      "containerAdminPort": "",
+      "replicaCount": 2,
+      "podAnnotations": {},
+      "imagePullSecrets": [],
+      "image": {
+        "repository": "nginx",
+        "pullPolicy": "IfNotPresent",
+        "tag": "10"
+      },
+      "containerEnv": {},
+      "containerExtraPorts": "",
+      "containerExtraSpecs": "",
+      "args": [],
+      "podSecurityContext": {
+        "enabled": false,
+        "fsGroup": 1001
+      },
+      "extraInitContainers": [],
+      "restartPolicy": "Always",
+      "securityContext": {
+        "enabled": false
+      },
+      "volumes": [],
+      "volumeMounts": [],
+      "command": [],
+      "nodeSelector": {},
+      "affinity": {},
+      "readinessProbe": {
+        "httpGet": {
+          "path": "/",
+          "port": 80,
+          "scheme": "HTTP"
+        },
+        "initialDelaySeconds": 5,
+        "timeoutSeconds": 5,
+        "periodSeconds": 5,
+        "successThreshold": 1,
+        "failureThreshold": 10
+      },
+      "livenessProbe": {
+        "httpGet": {
+          "path": "/",
+          "port": 80,
+          "scheme": "HTTP"
+        },
+        "initialDelaySeconds": 50,
+        "timeoutSeconds": 1,
+        "periodSeconds": 10,
+        "successThreshold": 1,
+        "failureThreshold": 5
+      },
+      "resources": {
+        "limits": {
+          "cpu": "100m",
+          "memory": "128Mi"
+        },
+        "requests": {
+          "cpu": "100m",
+          "memory": "128Mi"
+        }
+      },
+      "tolerations": [],
+      "startupProbe": "",
+      "extraVolumes": [],
+      "extraVolumeMounts": ""
+    },
+    "autoscaling": {
+      "enabled": true,
+      "minReplicas": 2,
+      "maxReplicas": 10,
+      "targetCPUUtilizationPercentage": 100,
+      "targetMemoryUtilizationPercentage": 100
+    },
+    "ingress": {
+      "enabled": true,
+      "labels": {},
+      "className": "",
+      "annotations": {},
+      "host": "your-host",
+      "tls": {
+        "secretName": ""
+      },
+      "rules": [{
+        "host": "chart-example.local",
+        "paths": [{
+          "path": "/",
+          "pathType": "ImplementationSpecific"
+        }]
+      }]
+    },
+    "service": {
+      "enabled": true,
+      "httpPortName": "http",
+      "type": "ClusterIP",
+      "httpPort": 8080,
+      "httpNodePort": "",
+      "httpAdminPort": 8081,
+      "httpAdminPortName": "http-admin",
+      "httpAdminNodePort": "",
+      "extraPorts": []
+    },
+    "serviceAccount": {
+      "create": true,
+      "annotations": {},
+      "name": "",
+      "imagePullSecrets": []
+    },
+    "canary": {
+      "enabled": false,
+      "header": {
+        "enabled": false,
+        "name": "cookie",
+        "regex": ""
+      },
+      "cookie": {
+        "enabled": false,
+        "name": "x-hidden-prod"
+      },
+      "percent": {
+        "enabled": false,
+        "value": 20
+      }
+    },
+    "flux": {
+      "enabled": false,
+      "configmap": {
+        "enabled": false,
+        "filepath": "/usr/src/app/",
+        "filename": "flux.json"
+      },
+      "internal": {}
+    },
+    "podDisruptionBudget": {},
+    "secrets": {
+      "data": {},
+      "type": ""
+    },
+    "configFiles": {},
+    "github": {
+      "enabled": false,
+      "organization": "votre-organisation",
+      "repository": "votre-repo"
+    }
+  }]
+}

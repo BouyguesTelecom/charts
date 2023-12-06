@@ -1,0 +1,82 @@
+{{- /*
+Copyright Bouygues Telecom SA
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+{{- if .Values.ingress.enabled -}}
+{{- $svcPort := .Values.service.httpPort -}}
+{{- $ingress := .Values.ingress -}}
+{{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+  {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
+  {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
+  {{- end }}
+{{- end }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-ingress{{- if eq .Values.canary.enabled true }}-canary{{- end }}
+  labels:
+    {{- include "spin.labels" . | nindent 4 }}
+    {{- range $key, $value := $ingress.labels }}
+      {{- printf "%s: %s" $key (tpl $value $ | quote) | nindent 4 }}
+    {{- end }}
+    app.kubernetes.io/component: http
+  {{- if or .Values.ingress.annotations .Values.ingress.tls }}
+  annotations:
+    {{- if eq $.Values.canary.enabled true }}
+    nginx.ingress.kubernetes.io/canary: "true"
+    {{- if eq .Values.canary.header.enabled true }}
+    nginx.ingress.kubernetes.io/canary-by-header: {{ .Values.canary.header.name }}
+    {{- if or (kindIs "invalid" $.Values.canary.header.regex) (eq $.Values.canary.header.regex "") }}
+    nginx.ingress.kubernetes.io/canary-by-header-value: "true"
+    {{- else}}
+    nginx.ingress.kubernetes.io/canary-by-header-pattern: {{ .Values.canary.header.regex }}
+    {{- end}}
+    {{- end}}
+    {{- if eq $.Values.canary.cookie.enabled true }}
+    nginx.ingress.kubernetes.io/canary-by-cookie: {{ .Values.canary.cookie.name }}
+    {{- end}}
+    {{- if eq $.Values.canary.percent.enabled true }}
+    nginx.ingress.kubernetes.io/canary-weight: '{{ .Values.canary.percent.value }}'
+    {{- end}}
+    {{- end }}
+    {{- with .Values.ingress.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- end }}
+spec:
+{{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ .Values.ingress.className }}
+{{- end }}
+  tls:
+    - hosts:
+      {{- if and .Values.environment .Values.domain }}
+        - {{- include "spin.host" . | quote }}
+      {{- else }}
+        - {{ .Values.ingress.host }}
+      {{- end }}
+      {{- if .Values.ingress.tls.secretName }}
+      secretName: {{ .Values.ingress.tls.secretName }}
+      {{- else }}
+      secretName: {{ .Release.Name }}-tls
+      {{- end }}
+  rules:
+  {{- range .Values.ingress.rules }}
+      {{- if .host }}
+    - host: {{ tpl .host $ | quote }}
+      {{- end }}
+      http:
+        paths:
+        {{- range .paths }}
+          - path: {{ .path }}
+            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
+            pathType: {{ .pathType }}
+            {{- end }}
+            backend:
+              service:
+                name: {{ .Release.Name }}-service
+                port:
+                  number: {{ .backend.service.port.number | default $svcPort }}
+        {{- end }}
+  {{- end }}
+{{- end }}

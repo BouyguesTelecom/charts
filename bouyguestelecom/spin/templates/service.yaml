@@ -1,0 +1,38 @@
+{{- /*
+Copyright Bouygues Telecom SA
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+{{- if .Values.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-service
+  labels:
+    {{- include "spin.labels" . | nindent 4 }}
+    app.kubernetes.io/component: http
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: {{ .Values.service.httpPortName }}
+      port: {{ .Values.service.httpPort }}
+      targetPort: {{ .Values.service.httpPortName }}
+      {{- if and (eq "NodePort" .Values.service.type) .Values.service.httpNodePort }}
+      nodePort: {{ .Values.service.httpNodePort }}
+      {{- end }}
+      protocol: TCP
+    {{- if or .Values.service.httpAdminPort .Values.service.httpAdminNodePort }}
+    - name: {{ .Values.service.httpAdminPortName }}
+      port: {{ .Values.service.httpAdminPort }}
+      targetPort: {{ .Values.service.httpAdminPortName }}
+      {{- if and (eq "NodePort" .Values.service.type) .Values.service.httpAdminNodePort }}
+      nodePort: {{ .Values.service.httpAdminNodePort }}
+      {{- end }}
+      protocol: TCP
+    {{- end }}
+    {{- with .Values.service.extraPorts }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  selector:
+    {{- include "spin.selectorLabels" . | nindent 4 }}
+{{- end }}

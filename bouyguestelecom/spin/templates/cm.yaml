@@ -1,0 +1,18 @@
+{{- /*
+Copyright Bouygues Telecom SA
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+{{- if .Values.configFiles }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-conf
+  labels:
+    {{- include "spin.labels" . | nindent 4 }}
+data:
+{{- range $filename, $content := .Values.configFiles }}
+  {{ $filename }}: |-
+{{ $content | indent 4 }}
+{{- end }}
+{{- end }}
