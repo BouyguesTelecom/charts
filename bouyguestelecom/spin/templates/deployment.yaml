@@ -39,7 +39,7 @@ spec:
       {{- if .Values.deployment.extraInitContainers }}
       initContainers:
         {{- with .Values.deployment.extraInitContainers }}
-          {{- tpl . $ | nindent 8 }}
+          {{- toYaml . | nindent 8 }}
           {{- end }}
       {{- end }}
       containers:
@@ -58,7 +58,7 @@ spec:
             {{- toYaml . | nindent 10 }}
           {{- end }}
           {{- with .Values.deployment.containerExtraSpecs }}
-          {{- tpl . $ | nindent 10 }}
+          {{- toYaml . | nindent 10 }}
           {{- end }}
           imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
           ports:
@@ -69,7 +69,7 @@ spec:
               containerPort: {{ default .Values.service.httpAdminPort .Values.deployment.containerAdminPort }}
             {{- end }}
             {{- with .Values.deployment.containerExtraPorts }}
-            {{- tpl . $ | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
             {{- end }}
           livenessProbe:
             {{- toYaml .Values.deployment.livenessProbe | nindent 12 }}
@@ -77,7 +77,7 @@ spec:
             {{- toYaml .Values.deployment.readinessProbe | nindent 12 }}
           {{- with .Values.deployment.startupProbe }}
           startupProbe:
-            {{- tpl . $ | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           resources:
             {{- toYaml .Values.deployment.resources | nindent 12 }}
