@@ -269,3 +269,9 @@ configFiles: {}
   #  insert_your_application_configuration_here
   #logback.xml: |-
 #  insert_your_logback_configuration_here
+
+# -- Log into github to generate tag image
+github:
+  enabled: false
+  organization: "votre-organisation"
+  repository: "votre-repo"

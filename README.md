@@ -42,7 +42,7 @@ This project provides template Helm Charts for deploying a web application into 
 ```
 dependencies:
   - name: spin
-    version: 0.1.0
+    version: 0.1.2
     repository: https://sara-picoud.github.io/spin-helms/
 ```
 
