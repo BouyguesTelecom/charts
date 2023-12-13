@@ -42,6 +42,10 @@ deployment:
     fsGroup: 1001 ## generic value
   # -- Add initContainers
   extraInitContainers: []
+    #    - name: init-container-1
+    #     image: your-image-1:tag
+    #    - name: init-container-2
+    #      image: your-image-2:tag
   # -- Pod restart policy. One of `Always`, `OnFailure`, or `Never`
   restartPolicy: Always
   # -- Security context
@@ -265,9 +269,3 @@ configFiles: {}
   #  insert_your_application_configuration_here
   #logback.xml: |-
 #  insert_your_logback_configuration_here
-
-# -- Log into github to generate tag image
-github:
-  enabled: false
-  organization: "votre-organisation"
-  repository: "votre-repo"
