@@ -41,7 +41,7 @@ deployment:
     # -- Set the File System Group (fsGroup) for the pod volumes
     fsGroup: 1001 ## generic value
   # -- Add initContainers
-  extraInitContainers: []
+  extraInitContainers: ""
     #    - name: init-container-1
     #     image: your-image-1:tag
     #    - name: init-container-2

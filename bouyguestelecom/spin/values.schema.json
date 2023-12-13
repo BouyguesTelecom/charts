@@ -205,12 +205,12 @@
           }]
         },
         "extraInitContainers": {
-          "type": "array",
-          "default": [],
+          "type": "string",
+          "default": "",
           "title": "The extraInitContainers Schema",
           "items": {},
           "examples": [
-            []
+            ""
           ]
         },
         "restartPolicy": {
@@ -632,7 +632,7 @@
           "enabled": false,
           "fsGroup": 1001
         },
-        "extraInitContainers": [],
+        "extraInitContainers": "",
         "restartPolicy": "Always",
         "securityContext": {
           "enabled": false
@@ -1402,7 +1402,7 @@
         "enabled": false,
         "fsGroup": 1001
       },
-      "extraInitContainers": [],
+      "extraInitContainers": "",
       "restartPolicy": "Always",
       "securityContext": {
         "enabled": false
