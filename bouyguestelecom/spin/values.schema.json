@@ -83,12 +83,12 @@
           ]
         },
         "podAnnotations": {
-          "type": "object",
-          "default": {},
+          "type": "string",
+          "default": "",
           "title": "The podAnnotations Schema",
-          "required": [],
-          "properties": {},
-          "examples": [{}]
+          "examples": [
+            ""
+          ]
         },
         "imagePullSecrets": {
           "type": "array",
@@ -617,7 +617,7 @@
         "containerPort": "",
         "containerAdminPort": "",
         "replicaCount": 2,
-        "podAnnotations": {},
+        "podAnnotations": "",
         "imagePullSecrets": [],
         "image": {
           "repository": "nginx",
@@ -1387,7 +1387,7 @@
       "containerPort": "",
       "containerAdminPort": "",
       "replicaCount": 2,
-      "podAnnotations": {},
+      "podAnnotations": "",
       "imagePullSecrets": [],
       "image": {
         "repository": "nginx",

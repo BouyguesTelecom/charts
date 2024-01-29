@@ -16,7 +16,7 @@ deployment:
   # -- ReplicaCount for the Pod
   replicaCount: 2
   # -- Additional annotations for the Pod
-  podAnnotations: {}
+  podAnnotations: ""
   imagePullSecrets: []
   # -- Docker image configuration settings
   image:
