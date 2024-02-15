@@ -243,8 +243,8 @@
           }]
         },
         "volumes": {
-          "type": "array",
-          "default": [],
+          "type": "string",
+          "default": "",
           "title": "The volumes Schema",
           "examples": [
             ""
@@ -597,8 +597,8 @@
           ]
         },
         "extraVolumes": {
-          "type": "array",
-          "default": [],
+          "type": "string",
+          "default": "",
           "title": "The extraVolumes Schema",
           "examples": [
             ""
