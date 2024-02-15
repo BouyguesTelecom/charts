@@ -1,6 +1,5 @@
 # Default values for spin.
 # This is a YAML-formatted file.
-
 # Override the fully qualified name
 fullnameOverride: ""
 
@@ -16,7 +15,7 @@ deployment:
   # -- ReplicaCount for the Pod
   replicaCount: 2
   # -- Additional annotations for the Pod
-  podAnnotations: ""
+  podAnnotations: {}
   imagePullSecrets: []
   # -- Docker image configuration settings
   image:
@@ -58,7 +57,7 @@ deployment:
     # runAsNonRoot: true
     # runAsUser: 1000
   # Volumes
-  volumes: []
+  volumes: ""
   # - name: kafka-jks
   #   configMap:
   #     name: {{ include "spin.fullName" . }}-conf-kafka-jks
@@ -126,7 +125,7 @@ deployment:
   # -- Empty means no startup probe is configured
   startupProbe: |
   # -- Add additionnal volumes
-  extraVolumes: []
+  extraVolumes: ""
     # - name: application-config
     #   configMap:
     #     name: {{ include "spin.fullName" . }}-conf

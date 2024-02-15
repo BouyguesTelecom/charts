@@ -111,10 +111,10 @@ Create volumes definition
       name: {{ .Release.Name }}-config-flux
   {{- end }}
   {{- with .Values.deployment.volumes }}
-  {{- toYaml . | nindent 2 }}
+  {{- tpl . $ | nindent 2 }}
   {{- end }}
   {{- with .Values.deployment.extraVolumes }}
-  {{- toYaml . | nindent 2 }}
+  {{- tpl . $ | nindent 2 }}
   {{- end }}
 {{- end }}
 
