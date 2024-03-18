@@ -87,8 +87,13 @@ spec:
             {{- range .env }}
             - name: {{ .name }}
               value: {{ .value | quote }}
-            {{- end }}
-            {{- end }}
+            {{- end -}}
+            {{- end -}}
+        {{- if .Values.deployment.extraContainers }}
+          {{- with .Values.deployment.extraContainers }}
+            {{- tpl . $ | nindent 8 }}
+          {{- end }}
+        {{- end }}
       {{- with .Values.deployment.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

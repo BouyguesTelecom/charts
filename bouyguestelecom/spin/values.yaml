@@ -45,6 +45,7 @@ deployment:
     #     image: your-image-1:tag
     #    - name: init-container-2
     #      image: your-image-2:tag
+  extraContainers: ""
   # -- Pod restart policy. One of `Always`, `OnFailure`, or `Never`
   restartPolicy: Always
   # -- Security context

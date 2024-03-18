@@ -42,6 +42,7 @@
         "args",
         "podSecurityContext",
         "extraInitContainers",
+        "extraContainers",
         "restartPolicy",
         "securityContext",
         "volumes",
@@ -208,6 +209,15 @@
           "type": "string",
           "default": "",
           "title": "The extraInitContainers Schema",
+          "items": {},
+          "examples": [
+            ""
+          ]
+        },
+        "extraContainers": {
+          "type": "string",
+          "default": "",
+          "title": "The extraContainers Schema",
           "items": {},
           "examples": [
             ""
@@ -633,6 +643,7 @@
           "fsGroup": 1001
         },
         "extraInitContainers": "",
+        "extraContainers": "",
         "restartPolicy": "Always",
         "securityContext": {
           "enabled": false
@@ -1403,6 +1414,7 @@
         "fsGroup": 1001
       },
       "extraInitContainers": "",
+      "extraContainers": "",
       "restartPolicy": "Always",
       "securityContext": {
         "enabled": false
