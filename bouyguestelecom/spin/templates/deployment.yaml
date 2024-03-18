@@ -27,9 +27,11 @@ spec:
     spec:
       imagePullSecrets:
       {{- if .Values.deployment.imagePullSecrets }}
-      {{- toYaml .Values.deployment.imagePullSecrets | nindent 2 }}
+        {{- range .Values.deployment.imagePullSecrets }}
+        - name: {{ . }}
+        {{- end }}
       {{- else }}
-          - name: {{ .Release.Name }}-secret
+        - name: {{ .Release.Name }}-secret
       {{- end }}
       serviceAccountName: {{ include "spin.serviceAccountName" . }}
       {{- if .Values.deployment.podSecurityContext.enabled }}
