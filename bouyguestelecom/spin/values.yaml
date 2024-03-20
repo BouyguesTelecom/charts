@@ -24,7 +24,7 @@ deployment:
     # -- docker image pull policy
     pullPolicy: IfNotPresent
     # -- docker image tag
-    tag: "10"
+    tag: "latest"
   # -- Additional ENV
   containerEnv: {}
   # -- Add extra ports to container
