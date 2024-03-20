@@ -65,7 +65,7 @@ Detect which version of main image we should use
 {{- $githubTagResponse := printf "$(curl -s %s)" $githubTag | quote }}
 {{- $githubTagResponse -}}
 {{- else }}
-{{- .Values.deployment.image.tag | quote -}}
+{{- required "A value is required for .Values.deployment.image.tag" .Values.deployment.image.tag | quote -}}
 {{- end }}
 {{- end -}}
 
