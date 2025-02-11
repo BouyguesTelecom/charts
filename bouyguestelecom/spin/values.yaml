@@ -258,6 +258,7 @@ podDisruptionBudget: {}
 
 # -- Configuration settings for Kubernetes secrets
 secrets:
+  enabled: true
   # -- Key-value pairs stored as base64-encoded strings
   data: {}
   type: ''
